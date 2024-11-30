@@ -168,7 +168,7 @@ export default function Body() {
                             <DialogHeader>
                                 <DialogTitle>Search</DialogTitle>
                                 <DialogDescription>
-                                    {"Search for any product, use the product's title"}
+                                    Search for any product using its name
                                 </DialogDescription>
                             </DialogHeader>
                             <form className="grid gap-4 py-4">
