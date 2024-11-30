@@ -1,8 +1,5 @@
 "use client"
-import {
-  Card,
-  CardHeader,
-} from "@/components/ui/card";
+
 import {
     Dialog,
     DialogContent,
@@ -23,7 +20,6 @@ import { Input } from "./ui/input";
 
 export default function Body() {
  const [isMobile,setIsMobile]=useState(false)
- const [transformValue, setTransformValue] = useState(0);
 
  const updateTransformValue = () => {
     const screenWidth = window.innerWidth;
@@ -172,7 +168,7 @@ export default function Body() {
                             <DialogHeader>
                                 <DialogTitle>Search</DialogTitle>
                                 <DialogDescription>
-                                    Search for any product, use the product's title
+                                    {"Search for any product, use the product's title"}
                                 </DialogDescription>
                             </DialogHeader>
                             <form className="grid gap-4 py-4">
