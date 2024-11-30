@@ -15,9 +15,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Insight.ai",
-  description: "An AI voice assistance.",
-  keywords:["Essays","Artifial Intelligence", "Summary", "Summarized","AI","Voice Assistance"]
+  title: "Ecomart",
+  description: "Get any item under affordable prices.",
+  keywords:["Market","Ecommerce", "Products", "Seller","Buyer","Sell","Buy"]
 };
 
 export default function RootLayout({
