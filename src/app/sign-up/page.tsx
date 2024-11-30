@@ -128,7 +128,7 @@ export default function SignUp() {
                             <p className="text-sm text-gray-500 text-center">Or sign up with</p>
                             <div className="flex flex-col space-y-1.5">
                                 <Button type="button" className="h-[40px]" variant="outline">
-                                    <Image alt="" src="/google.png" width={18} height={18} priority/>
+                                    <Image alt="" src="/google-vector.svg" width={18} height={18} priority/>
                                     <span>Sign up with Google</span>
                                 </Button>
                             </div>

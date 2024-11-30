@@ -100,7 +100,7 @@ export default function Header() {
             <div className=" bg-[var(--body-bg)] py-2 px-4 my-2 mx-2 sm:my-4 sm:mx-4 rounded-[50px]">
                 <nav className="flex justify-between items-center w-full md:px-5">
                     <Link href="/" className="flex gap-2 text-[var(--primary-01)] font-semibold">
-                        Ecomark
+                        Ecomart
                     </Link>
                     
                     {isMobile?(
@@ -113,7 +113,7 @@ export default function Header() {
                             <DrawerContent>
                                 <div className="mx-auto w-full max-w-sm">
                                     <DrawerHeader className="none">
-                                        <DrawerTitle hidden className="text-[var(--primary-01)]">Ecomark</DrawerTitle>
+                                        <DrawerTitle hidden className="text-[var(--primary-01)]">Ecomart</DrawerTitle>
                                         <DrawerDescription hidden className="text-gray-600">Menu</DrawerDescription>
                                     </DrawerHeader>
                                     <div className="flex flex-col gap-y-4 p-4 pb-0">
