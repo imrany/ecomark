@@ -3,12 +3,23 @@ import {
   Card,
   CardHeader,
 } from "@/components/ui/card";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import { Plus, Search, SortDesc } from "lucide-react";
 import { Button } from "./ui/button";
 import { ProductCard } from "@/components/product-card";
 import { ProductType, tagType } from "@/app/types";
 import { useEffect, useState } from "react";
 import TagCarousel from "./tag-carousel";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
 
 export default function Body() {
  const [isMobile,setIsMobile]=useState(false)
@@ -151,12 +162,55 @@ export default function Body() {
                 </div>
             ):(
                 <div className="flex gap-2 items-center flex-wrap">
-                    <Button variant="outline" className="flex items-center justify-center h-[35px] w-[32px] rounded-[50px]">
-                        <Search />
-                    </Button>
-                    <Button variant="outline" className="flex items-center justify-center h-[35px] w-[32px] rounded-[50px]">
-                        <Plus />
-                    </Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="outline" className="flex items-center justify-center h-[35px] w-[32px] rounded-[50px]">
+                                <Search />
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px] w-[90vw] rounded-md">
+                            <DialogHeader>
+                                <DialogTitle>Search</DialogTitle>
+                                <DialogDescription>
+                                    Search for any product, use the product's title
+                                </DialogDescription>
+                            </DialogHeader>
+                            <form className="grid gap-4 py-4">
+                                <div className="flex items-center rounded-md gap-2 bg-slate-100 py-2 px-3">
+                                    <Search className="text-gray-500 w-[20px] h-[20px]"/>
+                                    <input id="search" name="search" type="search" placeholder="Search product..." className="bg-slate-100 h-full border-none active:border-none focus:outline-none active:outline-none focus:border-none" required/>
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit" className="bg-[var(--primary-01)] hover:bg-[var(--primary-01)]">Search</Button>
+                                </DialogFooter>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="outline" className="flex items-center justify-center h-[35px] w-[32px] rounded-[50px]">
+                                <Plus />
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px] w-[90vw] rounded-md">
+                            <DialogHeader>
+                                <DialogTitle>Add</DialogTitle>
+                                <DialogDescription>
+                                    Add a new product
+                                </DialogDescription>
+                            </DialogHeader>
+                            <form className="grid gap-4 py-4">
+                                <div className="flex flex-col max-sm:w-full space-y-1.5">
+                                    <Label htmlFor="product_name" className="text-[var(--primary-01)]  required">Product name</Label>
+                                    <Input id="product_name" name="product_name" type="text" placeholder="Enter your product name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit" className="bg-[var(--primary-01)] hover:bg-[var(--primary-01)]">Submit</Button>
+                                </DialogFooter>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             )}
         </div>
