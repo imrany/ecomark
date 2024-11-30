@@ -94,12 +94,12 @@ export default function SignIn() {
                             </div>
                             <div className="sm:flex md:items-center sm:justify-between">
                                 <div className="flex items-center justify-center sm:justify-start py-2 sm:py-0">
-                                <input id="push-email" defaultValue={`${false}`} name="push-notifications" type="checkbox" phx-debounce="blur" className="h-4 w-4 rounded border-gray-300 text-[var(--primary-01)] focus:ring-[var(--primary-01)]"/>
-                                <label htmlFor="push-email" className="ml-3">
-                                    <span className="block text-sm font-medium text-[var(--primary-01)]">
-                                        Remember for 30 days
-                                    </span>
-                                </label>
+                                    <input id="push-email" defaultValue={`${false}`} name="push-notifications" type="checkbox" phx-debounce="blur" className="h-4 w-4 rounded border-gray-300 text-[var(--primary-01)] focus:ring-[var(--primary-01)]"/>
+                                    <label htmlFor="push-email" className="ml-3">
+                                        <span className="block text-sm font-medium text-[var(--primary-01)]">
+                                            Remember for 30 days
+                                        </span>
+                                    </label>
                                 </div>
                                 <div className="py-2 sm:py-0 text-center sm:text-left">
                                 <Button variant="link" className="ml-auto text-[var(--primary-01)]" asChild>

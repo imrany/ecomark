@@ -49,7 +49,7 @@ export default function Header() {
 
   const mobileLinks:LinkType[]=[
     {
-        label:"Go to the Product page",
+        label:"Go to home page",
         icon:(<Home className="text-[var(--primary-01)] w-[20px] h-[20px]"/>),
         href:"/",
         variant:"link"
@@ -62,7 +62,7 @@ export default function Header() {
     },
     {
         icon:(<Plus className="text-[var(--primary-01)] w-[20px] h-[20px]"/>),
-        label:"More products",
+        label:"Add new product",
         href:"/",
         variant:"link"
     },
