@@ -1,5 +1,5 @@
 {
-  "name": "insight-ai",
+  "name": "ecomart",
   "version": "0.1.0",
   "private": true,
   "author": "imrany",
@@ -12,11 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/imrany/insight"
+    "url": "https://github.com/imrany/ecomart"
   },
   "keywords": [
-    "Voice assistance",
-    "Artificial Intelligence"
+    "Market",
+    "Ecommerce"
   ],
   "dependencies": {
     "@emotion/core": "^11.0.0",
