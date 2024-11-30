@@ -8,7 +8,7 @@ export function ProductCard({
   product:ProductType
 }) {
   return (
-    <div className="w-80 mx-auto">
+    <div className="w-80 h-[446px] mx-auto">
       <FollowerPointer
         title={
           <TitleComponent
@@ -33,11 +33,11 @@ export function ProductCard({
               {product.label}
             </h2>
             <h2 className="font-normal my-4 text-sm text-zinc-500">
-              {product.description.slice(0,200)}...
+              {product.description.slice(0,100)}...
             </h2>
             <div className="flex flex-row justify-between items-center mt-10">
               <span className="text-sm text-gray-500">Ksh {product.price}</span>
-              <div className="relative z-10 px-6 py-2 bg-black text-white font-bold rounded-xl block text-xs">
+              <div className="relative rounded-md z-10 px-6 py-2 hover:bg-[var(--primary-01)] bg-[var(--primary-01)] text-white font-bold block text-xs">
                 Purchase
               </div>
             </div>
@@ -65,7 +65,7 @@ const TitleComponent = ({
         className="rounded-full border-2 border-white"
       />
     ):(
-      <div className="uppercase text-sm flex items-center justify-center h-[20px] w-[20px] rounded-full bg-gray-500">
+      <div className="uppercase text-xs flex items-center justify-center h-[20px] w-[20px] rounded-full bg-gray-500">
         {label.slice(0,2)}
       </div>
     )}

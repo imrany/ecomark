@@ -84,21 +84,9 @@ export default function SignUp() {
         checkAuth()
     })
   return (
-    <div className="flex font-[family-name:var(--font-geist-sans)] items-center flex-col h-screen w-screen  bg-gradient-to-t from-blue-100/20 dark:from-blue-900/5">
-        <svg 
-            aria-hidden
-            className="pointer-events-none [z-index:-1] absolute inset-0 h-full w-full fill-blue-500/50 stroke-blue-500/50 [mask-image:linear-gradient(to_top,_#ffffffad,_transparent)] opacity-[.30]" 
-            style={{visibility: "visible"}}
-        >
-            <defs>
-                <pattern id=":Rs57qbt6ja:" width={20} height={20} patternUnits="userSpaceOnUse" x="-1" y="-1">
-                    <path d="M.5 20V.5H20" fill="none" strokeDasharray="0"></path>
-                </pattern>
-            </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#:Rs57qbt6ja:)"></rect>
-        </svg>
-        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none border-x-[1px] border-dashed border-x-[var(--primary-01)]">
-            <Card className="w-full rounded-none shadow-none border-y-[1px] border-dashed border-y-[var(--primary-01)]">
+    <div className="flex font-[family-name:var(--font-geist-sans)] items-center flex-col h-screen">
+        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none">
+            <Card className="w-full rounded-none shadow-none border-none">
                 <CardHeader>
                     <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">Get Started!</CardTitle>
                     <CardDescription>Get started by creating an account.</CardDescription>
@@ -106,26 +94,36 @@ export default function SignUp() {
                 <CardContent>
                     <form onSubmit={handleSignUp}>
                         <div className="grid w-full items-center gap-4">
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="username" className="text-[var(--primary-01)] font-semibold">Username</Label>
-                                <Input id="username" name="username" type="text" placeholder="Enter your preferred username" className="border-[var(--primary-01)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                            <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-x-2 max-sm:gap-y-4 w-full">
+                                <div className="flex flex-col max-sm:w-full space-y-1.5">
+                                    <Label htmlFor="username" className="text-[var(--primary-01)] font-semibold required">Username</Label>
+                                    <Input id="username" name="username" type="text" placeholder="Enter preferred username" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                </div>
+                                <div className="flex flex-col max-sm:w-full space-y-1.5">
+                                    <Label htmlFor="email" className="text-[var(--primary-01)] font-semibold  required">Email address</Label>
+                                    <Input id="email" name="email" type="email" placeholder="Enter your email" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                </div>
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="email" className="text-[var(--primary-01)] font-semibold">Email</Label>
-                                <Input id="email" name="email" type="email" placeholder="example@gmail.com" className="border-[var(--primary-01)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                <Label htmlFor="password" className="text-[var(--primary-01)] font-semibold  required">Password</Label>
+                                <Input id="password" name="password" minLength={8} maxLength={24} type="password" placeholder="Enter password" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="password" className="text-[var(--primary-01)] font-semibold">Password</Label>
-                                <Input id="password" name="password" minLength={8} maxLength={24} type="password" placeholder="Enter password" className="border-[var(--primary-01)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
-                            </div>
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="confirm" className="text-[var(--primary-01)] font-semibold">Confirm password</Label>
-                                <Input id="confirm" name="confirm" minLength={8} maxLength={24} type="password" placeholder="Confirm password" className="border-[var(--primary-01)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                <Label htmlFor="confirm" className="text-[var(--primary-01)] font-semibold  required">Confirm password</Label>
+                                <Input id="confirm" name="confirm" minLength={8} maxLength={24} type="password" placeholder="Confirm password" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                             </div>
                             <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] hover:bg-[var(--primary-01)]":""}`}>
                                 {isDisabled===false?(<p>Create account</p>):(<p>Creating...</p>)}
                             </Button>
-                            <p className="text-sm text-gray-500 text-center">Or sign up with</p>
+                            {/* <p className="text-sm text-gray-500 text-center">Or sign up with</p> */}
+                            <div className="relative">
+                                <div className="absolute inset-0 flex items-center" aria-hidden>
+                                    <div className="w-full border-t border-gray-200"></div>
+                                </div>
+                                <div className="relative flex justify-center text-sm font-medium leading-6">
+                                    <span className="bg-white px-6 text-gray-600">Or continue with</span>
+                                </div>
+                            </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Button type="button" className="h-[40px]" variant="outline">
                                     <Image alt="" src="/google-vector.svg" width={18} height={18} priority/>
@@ -134,7 +132,7 @@ export default function SignUp() {
                             </div>
                             <div className="flex gap-1 text-gray-600 items-center justify-center md:text-sm text-xs">
                                 <p>{`Do you have an account?`}</p>
-                                <Button variant="link" className="text-[var(--primary-01)] md:text-sm text-xs" asChild>
+                                <Button variant="link" className="text-[var(--primary-01)] md:text-sm text-xs rounded-[50px]" asChild>
                                     <Link href="/sign-in">Sign in</Link>
                                 </Button>
                             </div>

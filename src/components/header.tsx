@@ -30,25 +30,19 @@ export default function Header() {
     {
         label:"Products",
         href:"/",
-        className:"hover:text-[var(--primary-01)]",
-        variant:"link"
+        className:"hover:text-[var(--primary-01)] text-[var(--text-primary-04)]",
+        variant:"ghost"
     },
     {
         label:"Contact us",
-        href:"mailto:imranmat254@gmail.com?subject=Mail from Insight.ai",
-        className:"hover:text-[var(--primary-01)]",
-        variant:"link"
+        href:"mailto:imranmat254@gmail.com?subject=Mail from Ecomart-ke",
+        className:"hover:text-[var(--primary-01)] text-[var(--text-primary-04)]",
+        variant:"ghost"
     },
     {
         label:"Sign in",
         href:"/sign-in",
-        className:"hover:text-[var(--primary-01)]",
-        variant:"ghost"
-    },
-    {
-        label:"Get Started",
-        href:"/sign-up",
-        className:"bg-[var(--primary-01)] hover:bg-[var(--primary-01)] rounded-[50px]",
+        className:"bg-[var(--primary-01)] hover:bg-[var(--primary-01)]",
         variant:"default"
     }
   ]
@@ -87,17 +81,17 @@ export default function Header() {
     }
   }
 
-  if (typeof window !== 'undefined') {
-    window.onresize=checkScreen
-  }
-
+  
   useEffect(()=>{
     checkScreen()
-  })
+    if (typeof window !== 'undefined') {
+        window.onresize=checkScreen
+    }
+  },[screen.width])
   return (
     <>
-        <header className="font-[family-name:var(--font-geist-sans)] bg-slate-100 z-50 fixed top-0 left-0 right-0">
-            <div className=" bg-[var(--body-bg)] py-2 px-4 my-2 mx-2 sm:my-4 sm:mx-4 rounded-[50px]">
+        <header className="font-[family-name:var(--font-geist-sans)] bg-[var(--body-bg)] border-b-[1px] z-50 fixed top-0 left-0 right-0">
+            <div className="my-2 mx-2 max-md:my-4 max-md:mx-4">
                 <nav className="flex justify-between items-center w-full md:px-5">
                     <Link href="/" className="flex gap-2 text-[var(--primary-01)] font-semibold">
                         Ecomart
@@ -106,9 +100,7 @@ export default function Header() {
                     {isMobile?(
                         <Drawer open={open} onOpenChange={setOpen}>
                             <DrawerTrigger asChild>
-                                <Button variant="outline"  onClick={() => setOpen(true)}>
-                                    <Menu className="w-[500px] h-[50px] text-[var(--primary-01)]"/>
-                                </Button>
+                                <Menu onClick={() => setOpen(true)} className="w-[23px] h-[23px] text-[var(--primary-01)]"/>
                             </DrawerTrigger>
                             <DrawerContent>
                                 <div className="mx-auto w-full max-w-sm">
@@ -130,7 +122,7 @@ export default function Header() {
                                                 </Button>
                                             </Link>
                                         ))}
-                                        <a target="_blank" rel="noreferrer noopener" href="mailto:imranmat254@gmail.com?subject=Mail from Insight.ai">
+                                        <a target="_blank" rel="noreferrer noopener" href="mailto:imranmat254@gmail.com?subject=Mail from Ecomart-ke">
                                             <Button onClick={handleClose} variant="link" asChild>
                                                 <span className="flex items-center w-full">
                                                     <span className="flex gap-2 items-center">

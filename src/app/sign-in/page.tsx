@@ -74,21 +74,9 @@ export default function SignIn() {
         checkAuth()
     })
   return (
-    <div className="flex font-[family-name:var(--font-geist-sans)] items-center flex-col h-screen w-screen  bg-gradient-to-t from-blue-100/20 dark:from-blue-900/5">
-        <svg 
-            aria-hidden
-            className="pointer-events-none [z-index:-1] absolute inset-0 h-full w-full fill-blue-500/50 stroke-blue-500/50 [mask-image:linear-gradient(to_top,_#ffffffad,_transparent)] opacity-[.30]" 
-            style={{visibility: "visible"}}
-        >
-            <defs>
-                <pattern id=":Rs57qbt6ja:" width={20} height={20} patternUnits="userSpaceOnUse" x="-1" y="-1">
-                    <path d="M.5 20V.5H20" fill="none" strokeDasharray="0"></path>
-                </pattern>
-            </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#:Rs57qbt6ja:)"></rect>
-        </svg>
-        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none border-x-[1px] border-dashed border-x-[var(--primary-01)]">
-            <Card className="w-full rounded-none shadow-none border-y-[1px] border-dashed border-y-[var(--primary-01)]">
+    <div className="flex font-[family-name:var(--font-geist-sans)] items-center flex-col h-screen">
+        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none">
+            <Card className="w-full rounded-none shadow-none border-none">
                 <CardHeader>
                     <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">Welcome Back!</CardTitle>
                     <CardDescription>Get started by sign in to your account.</CardDescription>
@@ -97,22 +85,44 @@ export default function SignIn() {
                     <form onSubmit={handleSignIn}>
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="email" className="text-[var(--primary-01)] font-semibold">Email</Label>
-                                <Input id="email" name="email" type="email" placeholder="example@gmail.com" className="border-[var(--primary-01)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                <Label htmlFor="email" className="text-[var(--primary-01)] font-semibold required">Email address</Label>
+                                <Input id="email" name="email" type="email" placeholder="Enter your email" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="password" className="text-[var(--primary-01)]  font-semibold">Password</Label>
-                                <Input id="password" name="password" minLength={8} maxLength={24} type="password" className="border-[var(--primary-01)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" placeholder="Enter your password" required/>
+                                <Label htmlFor="password" className="text-[var(--primary-01)]  font-semibold required">Password</Label>
+                                <Input id="password" name="password" minLength={8} maxLength={24} type="password" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" placeholder="Password" required/>
                             </div>
-                            <Button variant="link" className="ml-auto text-[var(--primary-01)]" asChild>
-                                <Link href="#">Forgot password</Link>
-                            </Button>
-                            <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] hover:bg-[var(--primary-01)]":""}`}>
+                            <div className="sm:flex md:items-center sm:justify-between">
+                                <div className="flex items-center justify-center sm:justify-start py-2 sm:py-0">
+                                <input id="push-email" defaultValue={`${false}`} name="push-notifications" type="checkbox" phx-debounce="blur" className="h-4 w-4 rounded border-gray-300 text-[var(--primary-01)] focus:ring-[var(--primary-01)]"/>
+                                <label htmlFor="push-email" className="ml-3">
+                                    <span className="block text-sm font-medium text-[var(--primary-01)]">
+                                        Remember for 30 days
+                                    </span>
+                                </label>
+                                </div>
+                                <div className="py-2 sm:py-0 text-center sm:text-left">
+                                <Button variant="link" className="ml-auto text-[var(--primary-01)]" asChild>
+                                    <Link href="/en/password-reset/new-request" data-phx-link="redirect" data-phx-link-state="push" className="text-sm text-navcolor-600 font-semibold hover:underline" title="Navigate to password reset page">
+                                        Forgot Password
+                                    </Link>
+                                </Button>
+                                </div>
+                            </div>
+                            <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] font-semibold hover:bg-[var(--primary-01)]":""}`}>
                                 {isDisabled===false?(<p>Sign in</p>):(<p>Sending...</p>)}
                             </Button>
-                            <p className="text-sm text-gray-500 text-center">Or sign in with</p>
+                            {/* <p className="text-sm text-gray-500 text-center">Or sign in with</p> */}
+                            <div className="relative">
+                                <div className="absolute inset-0 flex items-center" aria-hidden>
+                                    <div className="w-full border-t border-gray-200"></div>
+                                </div>
+                                <div className="relative flex justify-center text-sm font-medium leading-6">
+                                    <span className="bg-white px-6 text-gray-600">Or continue with</span>
+                                </div>
+                            </div>
                             <div className="flex flex-col space-y-1.5">
-                                <Button type="button" className="h-[40px]" variant="outline">
+                                <Button type="button" className="h-[40px] font-semibold" variant="outline">
                                     <Image alt="" src="/google-vector.svg" width={18} height={18} priority/>
                                     <span>Sign in with Google</span>
                                 </Button>

@@ -15,6 +15,10 @@ body {
   transition: width 0.3s ease-in-out;
 }
 
+label.required:after {
+  color: red;
+  content: " *";
+}
 .sidebar.open {
   width: 60px;
   transition: width 0.3s ease-in-out;
@@ -62,10 +66,14 @@ body {
     --radius: 0.5rem;
 
     /* custom theme */
-    --body-bg:white;
     --text-primary-01:white;
     --text-primary-02:black;
-    --primary-01:black;
+    --text-primary-03:#0e0247;
+    --text-primary-04:#4b5563;
+
+    --body-bg:white;
+    --primary-01:#0e0247;
+    --primary-04:#4b5563;
     --shadow-default: 5px 5px 0 rgba(7, 77, 207, .05), -5px -5px 0 rgba(7, 77, 207, .05);
     --shadow-alt: 5px 5px 0 rgba(7, 77, 207, .05);
 

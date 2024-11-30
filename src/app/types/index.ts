@@ -8,3 +8,11 @@ export type ProductType={
     sellerAvatar:string | null,
     price:number
 }
+
+export type tagType={
+    label:string,
+    href:string,
+    className?:string,
+    variant:any,
+    icon?:any
+}
