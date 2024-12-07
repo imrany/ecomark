@@ -42,4 +42,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-src\lib\google-apis\key\
+src/lib/google-apis/key
