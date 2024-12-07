@@ -52,3 +52,17 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   }
 }
 
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ email: string }>}) {
+  try{
+    const email = (await params).email
+    const data: any = await deletePrompts(email);
+    if(data){
+        return Response.json({message:data})
+    }else{
+      return NextResponse.json({error:`No record found`},{status:404})
+    }
+  }catch(error:any){
+    console.error('Error:', error); // Return an error response
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
