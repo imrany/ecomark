@@ -87,7 +87,7 @@ export default function Header() {
     if (typeof window !== 'undefined') {
         window.onresize=checkScreen
     }
-  },[screen.width])
+  },[])
   return (
     <>
         <header className="font-[family-name:var(--font-geist-sans)] bg-[var(--body-bg)] border-b-[1px] z-50 fixed top-0 left-0 right-0">
