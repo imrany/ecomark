@@ -1,9 +1,9 @@
 import { accessSheet } from "@/lib/google-apis/sheets";
 import { NextResponse } from "next/server";
 
+const spreadsheetId = `${process.env.BUSINESS_SPREADSHEET_ID}`
 export async function GET(req: Request) {
     try{
-        const spreadsheetId = '1gaMaxQuwgdlMvUKFRT6X_EsU_UnH0lVxlJXeKlZITOc'; // Replace with your Spreadsheet ID
         const range = 'Sheet1!A1:M10'; // Adjust the range according to your sheet
         const result:any = await accessSheet(spreadsheetId, range)
         return Response.json({

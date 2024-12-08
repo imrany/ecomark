@@ -56,6 +56,28 @@ export async function writeDataToSheet(spreadsheetId:string, range:string, value
   });
 }
 
+export async function updateRow(spreadsheetId:string, range:string, values:any) { 
+  return new Promise(async(resolve, reject) => { 
+    const auth = await authorize(); 
+    const sheets = google1.sheets({ version: 'v4', auth }); 
+    const request = { 
+      spreadsheetId: spreadsheetId, 
+      range: range, 
+      valueInputOption: 'RAW', 
+      resource: { 
+        values: [values] 
+      } 
+    }; 
+    try { 
+      await sheets.spreadsheets.values.update(request); 
+      resolve(`Row updated successfully.`); 
+    } catch (error) { 
+      console.error('Error updating row:', error); 
+      reject(error); 
+    }
+  })
+}
+
 export async function deleteRows(spreadsheetId:string, sheetName:string, startRowIndex:number, endRowIndex:number) {
   return new Promise(async(resolve, reject) => { 
     const auth = await authorize();
