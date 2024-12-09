@@ -10,7 +10,6 @@ export async function POST(req: Request) {
          } = await req.json()
         const rows:any = await accessSheet(spreadsheetId, 'Sheet1!A1:M10')
         for (let row of rows) { 
-            console.log(row); 
             if (row.includes(business_email)) { 
                 return Response.json({
                     error:"A business with this email already exist.",
@@ -31,7 +30,6 @@ export async function POST(req: Request) {
         const result = await writeDataToSheet(spreadsheetId, range, values)
         return Response.json({
             message:"Record added successful",
-            data:result
         })
 
     }catch(error:any){

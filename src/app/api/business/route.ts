@@ -1,13 +1,15 @@
+import { mapArraytoObj } from "@/lib/google-apis/mapArrayToObj";
 import { accessSheet } from "@/lib/google-apis/sheets";
 import { NextResponse } from "next/server";
 
 const spreadsheetId = `${process.env.BUSINESS_SPREADSHEET_ID}`
 export async function GET(req: Request) {
     try{
-        const range = 'Sheet2!A1:M10'; // Adjust the range according to your sheet
+        const range = 'Sheet1!A1:M10'; // Adjust the range according to your sheet
         const result:any = await accessSheet(spreadsheetId, range)
+        const data=mapArraytoObj(result)
         return Response.json({
-            data:result,
+            data,
             rows:result.length,
             columns:result[0].length,
         })
