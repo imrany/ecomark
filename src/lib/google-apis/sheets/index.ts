@@ -56,9 +56,9 @@ export async function writeDataToSheet(spreadsheetId:string, range:string, value
   });
 }
 
-export async function updateRow(spreadsheetId:string, range:string, values:any) { 
+export async function updateRow(spreadsheetId:string, range:string, values:any) {
   return new Promise(async(resolve, reject) => { 
-    const auth = await authorize(); 
+    const auth = await authorize();
     const sheets = google1.sheets({ version: 'v4', auth }); 
     const request = { 
       spreadsheetId: spreadsheetId, 

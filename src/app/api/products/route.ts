@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const spreadsheetId = `${process.env.BUSINESS_SPREADSHEET_ID}`
 export async function GET(req: Request) {
     try{
-        const range = 'Sheet2!A1:M10'; // Adjust the range according to your sheet
+        const range = 'Sheet2!A1:N10'; // Adjust the range according to your sheet
         const result:any = await accessSheet(spreadsheetId, range)
         return Response.json({
             data:result,
