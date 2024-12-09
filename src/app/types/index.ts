@@ -1,12 +1,19 @@
 export type ProductType={
-    slug:string,
-    seller:string,
-    date:string,
-    label:string,
-    description:string,
-    image:string,
+    product_reference:string,
+    product_photo:string,
+    product_category:string,
+    product_name:string,
+    product_description:string,
+    product_price:number,
+    business_name:string,
+    business_location:string,
+    business_phone_number:number,
+    business_till_number:number,
+    business_paybill:number,
+    business_paybill_account_number:number,
+    business_location_photo:string,
+    business_location_lat_long:string,
     sellerAvatar:string | null,
-    price:number
 }
 
 export type tagType={

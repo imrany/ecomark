@@ -35,7 +35,7 @@ export default function Header() {
     },
     {
         label:"Contact us",
-        href:"mailto:imranmat254@gmail.com?subject=Mail from Ecomart-ke",
+        href:"mailto:imranmat254@gmail.com?subject=Mail from Villebiz-ke",
         className:"hover:text-[var(--primary-01)] text-[var(--text-primary-04)]",
         variant:"ghost"
     },
@@ -94,7 +94,7 @@ export default function Header() {
             <div className="my-2 mx-2 max-md:my-4 max-md:mx-4">
                 <nav className="flex justify-between items-center w-full md:px-5">
                     <Link href="/" className="flex gap-2 text-[var(--primary-01)] font-semibold">
-                        Ecomart
+                        Villebiz
                     </Link>
                     
                     {isMobile?(
@@ -105,7 +105,7 @@ export default function Header() {
                             <DrawerContent>
                                 <div className="mx-auto w-full max-w-sm">
                                     <DrawerHeader className="none">
-                                        <DrawerTitle hidden className="text-[var(--primary-01)]">Ecomart</DrawerTitle>
+                                        <DrawerTitle hidden className="text-[var(--primary-01)]">Villebiz</DrawerTitle>
                                         <DrawerDescription hidden className="text-gray-600">Menu</DrawerDescription>
                                     </DrawerHeader>
                                     <div className="flex flex-col gap-y-4 p-4 pb-0">
@@ -122,7 +122,7 @@ export default function Header() {
                                                 </Button>
                                             </Link>
                                         ))}
-                                        <a target="_blank" rel="noreferrer noopener" href="mailto:imranmat254@gmail.com?subject=Mail from Ecomart-ke">
+                                        <a target="_blank" rel="noreferrer noopener" href="mailto:imranmat254@gmail.com?subject=Mail from Villebiz-ke">
                                             <Button onClick={handleClose} variant="link" asChild>
                                                 <span className="flex items-center w-full">
                                                     <span className="flex gap-2 items-center">

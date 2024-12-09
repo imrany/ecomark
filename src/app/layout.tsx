@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster"
 import localFont from "next/font/local";
 import "./globals.css";
+import { GlobalProvider } from "@/components/GlobalContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ecomart",
+  title: "Villebiz",
   description: "Get any item under affordable prices.",
   keywords:["Market","Ecommerce", "Products", "Seller","Buyer","Sell","Buy"]
 };
@@ -30,8 +31,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased sm:p-4 p-2`}
       >
-        <main>{children}</main>
-        <Toaster />
+        <GlobalProvider>
+          <main>{children}</main>
+          <Toaster />
+        </GlobalProvider>
       </body>
     </html>
   );
