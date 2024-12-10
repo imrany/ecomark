@@ -17,13 +17,14 @@ import TagCarousel from "./tag-carousel";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Skeleton } from "@/components/ui/skeleton"
-
+import { useRouter } from 'next/navigation'
 
 export default function Body({
     products
 }:{
     products:ProductType[]
 }) {
+ const router =useRouter()
  const [isMobile,setIsMobile]=useState(false)
 
  const updateTransformValue = () => {
@@ -79,9 +80,9 @@ export default function Body({
  ]
 
   useEffect(()=>{
-      updateTransformValue();
-      window.addEventListener('resize', updateTransformValue);
-      return () => window.removeEventListener('resize', updateTransformValue);
+    updateTransformValue();
+    window.addEventListener('resize', updateTransformValue);
+    return () => window.removeEventListener('resize', updateTransformValue);
  }, [isMobile])
   return (
     <div className="flex font-[family-name:var(--font-geist-sans)] mt-[43px] flex-col w-full p-4">
@@ -93,7 +94,7 @@ export default function Body({
                         <Search className="text-gray-500 w-[20px] h-[20px]"/>
                         <input id="search" name="search" type="search" placeholder="Search product..." className="bg-slate-100 h-full border-none active:border-none focus:outline-none active:outline-none focus:border-none" required/>
                     </form>
-                    <Button variant="outline" className="flex gap-2 rounded-[50px]">
+                    <Button onClick={()=>router.push("/products/add")} variant="outline" className="flex gap-2 rounded-[50px]">
                         <p>Add New Product</p>
                         <Plus />
                     </Button>
