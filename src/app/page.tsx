@@ -64,10 +64,25 @@ export default function Home() {
       console.log(error)
     }
   }
+ 
+  async function registerServiceWorker() {
+    try{
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/',
+        updateViaCache: 'none',
+      })
+      console.log("sw registered")
+    }catch(error:any){
+      console.log(error.message)
+    }
+  }
 
-  useEffect(()=>{
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      registerServiceWorker()
+    }
     getProducts()
-  })
+  }, [])
   return(
     <main className="flex min-h-screen overflow-x-hidden flex-col items-center justify-start">
       <Header/>

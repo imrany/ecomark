@@ -17,8 +17,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Villebiz",
-  description: "Get any item under affordable prices.",
-  keywords:["Market","Ecommerce", "Products", "Seller","Buyer","Sell","Buy"]
+  description: "Get goods and services at affordable prices.",
+  keywords:["villebiz","Villebiz","Market","Ecommerce", "Products", "Seller","Buyer","Sell","Buy"]
 };
 
 export default function RootLayout({
@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>  
+        <meta name="apple-mobile-web-app-title" content="villebiz" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased sm:p-4 p-2`}
       >

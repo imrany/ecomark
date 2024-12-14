@@ -170,7 +170,7 @@ export default function Body({
                     })}
                 </div>
             ):(
-                <div className="pt-4 max-sm:flex flex-wrap gap-2 max-sm:gap-y-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center">
+                <div className="pt-4 max-sm:flex flex-wrap gap-2 max-sm:gap-y-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center">
                     {[1,2,3,4].map(n=>(
                         <div key={n} className="flex flex-col space-y-3">
                             <Skeleton className="w-[300px] h-[200px] rounded-xl" />
