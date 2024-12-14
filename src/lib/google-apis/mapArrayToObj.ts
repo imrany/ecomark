@@ -3,7 +3,7 @@ export function mapArraytoObj(data:any){
     const values = data.slice(1); //gets all the rows except the first one.
 
     const result = values.map((item:string) => {
-        let obj:any = {};
+        const obj:any = {};
         keys.forEach((key:string, index:number) => {
             obj[key] = item[index] || ''; // Assign default empty string if undefined
         });

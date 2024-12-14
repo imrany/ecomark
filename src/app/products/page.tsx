@@ -4,12 +4,7 @@ import { useState, useEffect } from "react"
 import { ProductType } from "../types"
 
 // '/products?a=1'
-export default async function Page({
-    searchParams,
-}: {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}) {
-    const filters = (await searchParams).filters
+export default function Page() {
     const [products,setProducts]=useState<ProductType[]>([
         {
           product_reference:"",
@@ -70,7 +65,7 @@ export default async function Page({
     
       useEffect(()=>{
         getProducts()
-      },[])
+      })
     return(
         <main className="flex min-h-screen overflow-x-hidden flex-col justify-start">
             <Body products={products}/>
