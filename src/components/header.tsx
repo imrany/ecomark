@@ -93,9 +93,18 @@ export default function Header() {
         <header className="font-[family-name:var(--font-geist-sans)] bg-[var(--body-bg)] border-b-[1px] z-50 fixed top-0 left-0 right-0">
             <div className="my-2 mx-2 max-md:my-4 max-md:mx-4">
                 <nav className="flex justify-between items-center w-full md:px-5">
-                    <Link href="/" className="flex gap-2 text-[var(--primary-01)] font-semibold">
-                        Villebiz
-                    </Link>
+                    <div className="flex items-center gap-2">
+                        <svg width="32" height="32" viewBox="0 0 106 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.41666 4.66666H22.0833L33.92 67.1533C34.3239 69.3018 35.4301 71.2318 37.045 72.6054C38.6599 73.979 40.6806 74.7086 42.7533 74.6667H85.6833C87.7561 74.7086 89.7768 73.979 91.3917 72.6054C93.0066 71.2318 94.1128 69.3018 94.5167 67.1533L101.583 28H26.5M44.1667 98C44.1667 100.577 42.1893 102.667 39.75 102.667C37.3107 102.667 35.3333 100.577 35.3333 98C35.3333 95.4227 37.3107 93.3333 39.75 93.3333C42.1893 93.3333 44.1667 95.4227 44.1667 98ZM92.75 98C92.75 100.577 90.7726 102.667 88.3333 102.667C85.8941 102.667 83.9167 100.577 83.9167 98C83.9167 95.4227 85.8941 93.3333 88.3333 93.3333C90.7726 93.3333 92.75 95.4227 92.75 98Z" stroke="#009951" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M52 54C62.5468 64.6579 68.4538 64.6755 79 54" stroke="#43A02C" strokeWidth="3"/>
+                            <circle cx="58" cy="44" r="5" transform="rotate(180 58 44)" fill="#43A02C"/>
+                            <circle cx="74" cy="44" r="5" transform="rotate(180 74 44)" fill="#43A02C"/>
+                        </svg>
+
+                        <Link href="/" className="flex gap-2 text-[var(--primary-01)] font-semibold">
+                            Villebiz
+                        </Link>
+                    </div>
                     
                     {isMobile?(
                         <Drawer open={open} onOpenChange={setOpen}>
