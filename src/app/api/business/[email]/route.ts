@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     const products: any = await accessSheet(spreadsheetId, 'Sheet2!A1:N10');
 
-    // Filter products for the business name "MK Gas"
+    // Filter products for the business name
     const filteredProducts = products.filter((product: any) => product[6] === rows[rowIndex][1]);
 
     if (rows[rowIndex]) {
