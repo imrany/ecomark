@@ -1,7 +1,7 @@
 import { accessSheet, deleteRows, updateRow } from "@/lib/google-apis/sheets";
 import { NextRequest,NextResponse } from "next/server";
 
-const spreadsheetId = `${process.env.BUSINESS_SPREADSHEET_ID}`
+const spreadsheetId = process.env.BUSINESS_SPREADSHEET_ID as string
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ referrence: string }>}) {
     try{
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         // Find the row index with the specific value 
         let rowIndex = -1; 
         for (let i = 0; i < rows.length; i++) { 
-            if (rows[i][3] === referrence) { 
+            if (rows[i][0] === referrence) { 
                 rowIndex = i; 
                 break; 
             } 
@@ -18,11 +18,26 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         if (rowIndex === -1) { 
             return NextResponse.json({error:`No record found`},{status:404})
         }
-        const data:any= rows[rowIndex]
-        console.log(data)
-        if(data){
+        
+        if(rows[rowIndex]){
+            const data:any={
+                'Product Reference':rows[rowIndex][0],
+                'Product Photo':rows[rowIndex][1],
+                'Product Category':rows[rowIndex][2],
+                'Product Name':rows[rowIndex][3],
+                'Product Description':rows[rowIndex][5],
+                'Product Price':rows[rowIndex][6],
+                'Business Name':rows[rowIndex][7],
+                'Business location':rows[rowIndex][8],
+                'Business Phone Number':rows[rowIndex][9],
+                'Business Till Number':rows[rowIndex][10],
+                'Business Paybill':rows[rowIndex][11],
+                'Business paybill account number':rows[rowIndex][12],
+                'Business Location Photo':rows[rowIndex][13],
+                'Business Location lat_long':rows[rowIndex][14],
+            }
             console.log(data)
-            return Response.json({message:`Business delete successfull`})
+            return Response.json(data)
         }else{
             return NextResponse.json({error:`No record found`},{status:404})
         }
@@ -39,7 +54,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         // Find the row index with the specific value 
         let rowIndexToDelete = -1; 
         for (let i = 0; i < rows.length; i++) { 
-            if (rows[i][3] === referrence) { 
+            if (rows[i][0] === referrence) { 
                 rowIndexToDelete = i; 
                 break; 
             } 
@@ -76,7 +91,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         // Find the row index with the specific value 
         let rowIndexToUpdate = -1; 
         for (let i = 0; i < rows.length; i++) { 
-            if (rows[i][3] === referrence) { 
+            if (rows[i][0] === referrence) { 
                 rowIndexToUpdate = i + 1; // Adjust to 1-based index
                 break; 
             } 

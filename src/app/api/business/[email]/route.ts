@@ -1,7 +1,7 @@
 import { accessSheet, deleteRows, updateRow } from "@/lib/google-apis/sheets";
 import { NextRequest,NextResponse } from "next/server";
 
-const spreadsheetId = `${process.env.BUSINESS_SPREADSHEET_ID}`
+const spreadsheetId = process.env.BUSINESS_SPREADSHEET_ID as string
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ email: string }>}) {
     try{
@@ -18,11 +18,25 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         if (rowIndex === -1) { 
             return NextResponse.json({error:`No record found`},{status:404})
         }
-        const data:any= rows[rowIndex]
-        console.log(data)
-        if(data){
+        
+        if(rows[rowIndex]){
+            const data:any={
+                'Business Reference':rows[rowIndex][0],
+                'Business Name':rows[rowIndex][1],
+                'Business Logo':rows[rowIndex][2],
+                'Business Email':rows[rowIndex][3],
+                'Business Owner':rows[rowIndex][4],
+                'Location Name':rows[rowIndex][5],
+                'Location Photo':rows[rowIndex][6],
+                'Location lat_long':rows[rowIndex][7],
+                'Business Description':rows[rowIndex][8],
+                'Till number':rows[rowIndex][9],
+                'Paybill':rows[rowIndex][10],
+                'Paybill Account number':rows[rowIndex][11],
+                'Phone Number':rows[rowIndex][12],
+            }
             console.log(data)
-            return Response.json({message:`Business delete successfull`})
+            return Response.json(data)
         }else{
             return NextResponse.json({error:`No record found`},{status:404})
         }

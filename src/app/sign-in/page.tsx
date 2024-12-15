@@ -14,16 +14,18 @@ import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, FormEvent } from "react"
 
 export default function SignIn() {
     const { toast }=useToast()
     const [isDisabled,setIsDisabled]=useState(false)
     const router = useRouter()
-    async function handleSignIn(e:any) {
+
+    async function handleSignIn(e:FormEvent<HTMLFormElement>) {
         try{
             setIsDisabled(true)
             e.preventDefault()
+            const formData = new FormData(e.currentTarget)
             const url="/api/auth/sign_in"
             const response=await fetch(url,{
                 method:"POST",
@@ -31,8 +33,8 @@ export default function SignIn() {
                     "content-type":"application/json"
                 },
                 body:JSON.stringify({
-                    password:e.target.password.value,
-                    email:e.target.email.value
+                    password:formData.get('password'),
+                    email:formData.get('email')
                 })
             })
             const parseRes=await response.json()

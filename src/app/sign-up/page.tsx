@@ -16,6 +16,7 @@ import { useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 
+// username, full_name, photo, email, phone_number, location_name, location_lat_long, account_balance, password
 
 export default function SignUp() {
     const { toast } = useToast()

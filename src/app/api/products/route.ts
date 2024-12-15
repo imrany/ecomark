@@ -2,7 +2,7 @@ import { mapArraytoObj } from "@/lib/google-apis/mapArrayToObj";
 import { accessSheet } from "@/lib/google-apis/sheets";
 import { NextResponse } from "next/server";
 
-const spreadsheetId = `${process.env.BUSINESS_SPREADSHEET_ID}`
+const spreadsheetId = process.env.BUSINESS_SPREADSHEET_ID as string
 export async function GET(req: Request) {
     try{
         const range = 'Sheet2!A1:N10'; // Adjust the range according to your sheet
