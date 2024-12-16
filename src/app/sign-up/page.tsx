@@ -22,6 +22,7 @@ export default function SignUp() {
     const [isDisabled,setIsDisabled]=useState(false)
     const [currentTab, setCurrentTab] = useState(1);
     const [locationCoordinates, setLocationCoordinates]=useState("")
+    const [getLocationError,setGetLocationError]=useState("")
 
     async function handleSignUp(e:FormEvent<HTMLFormElement>) {
         try{
@@ -93,7 +94,7 @@ export default function SignUp() {
             router.push("/home")
         }else if(!verified||isEmailVerified===false){
             setIsLoading(false)
-            // router.push("/verify-email")
+            router.push("/verify-email")
         }
     }
 
@@ -109,13 +110,14 @@ export default function SignUp() {
                     setLocationCoordinates(`${latitude}, ${longitude}`)
                   },
                   function(error) {
-                    e.target.reset()
-                    console.error(`Error Code = ${error.code} - ${error.message}`);
+                    e.target.checked=false
+                    setGetLocationError(`Error: ${error.message}`);
+                    setLocationCoordinates("0,0")
                   }
                 );
             } else {
-                console.error("Geolocation is not supported by this browser.");
-                e.target.reset()
+                e.target.checked=false
+                setGetLocationError("Geolocation is not supported by this browser.");
                 setLocationCoordinates("0,0")
             }
         }
@@ -197,12 +199,13 @@ export default function SignUp() {
                                         <Input id="confirm" name="confirm" minLength={8} maxLength={24} type="password" placeholder="Confirm password" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                                     </div>
                                     <div className="flex flex-col max-sm:w-full space-y-1.5">
-                                        <div className="flex items-center justify-center sm:justify-start py-2 sm:py-0">
+                                        <div className="flex items-center justify-center w-full sm:justify-start py-2 sm:py-0">
                                             <input id="location_lat_long" onChange={(e)=>turnOnLocation(e)} defaultValue={`${false}`} name="push-notifications" type="checkbox" phx-debounce="blur" className="h-4 w-4 rounded border-gray-300 text-[var(--primary-01)] focus:ring-[var(--primary-01)]"/>
-                                            <label htmlFor="location_lat_long" className="ml-3">
+                                            <label htmlFor="location_lat_long" className="ml-3 flex w-full justify-between">
                                                 <span className="block text-sm font-medium text-[var(--primary-01)]">
                                                     Turn on location
                                                 </span>
+                                                <span className="block text-sm font-medium text-red-500">{getLocationError}</span>
                                             </label>
                                         </div>
                                     </div>
