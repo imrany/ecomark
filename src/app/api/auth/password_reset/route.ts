@@ -28,14 +28,14 @@ export async function PATCH(req: Request) {
                 rows[rowIndex][1],rows[rowIndex][2],rows[rowIndex][3],hashedPassword,rows[rowIndex][5],rows[rowIndex][6],rows[rowIndex][7],rows[rowIndex][8],rows[rowIndex][9]
             ]]; 
             await writeDataToSheet(spreadsheetId, range, values)
-            let mailTranporter=createTransport({
+            const mailTranporter=createTransport({
                 service:'gmail',
                 auth:{
                     user:process.env.TRANSPORTER,
                     pass:process.env.TRANSPORTER_PASSWORD
                 }
             });
-            let details={
+            const details={
                 from:process.env.TRANSPORTER,
                 to:email,
                 subject:`Account Update`,

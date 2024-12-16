@@ -137,12 +137,12 @@ export default function SignUp() {
             <Card className="w-full rounded-none shadow-none border-none">
                 {currentTab === 1 ?(
                     <CardHeader>
-                        <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">You're almost there!</CardTitle>
+                        <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">{`You're almost there!`}</CardTitle>
                         <CardDescription>Create your account here.</CardDescription>
                     </CardHeader>
                 ):(
                     <CardHeader>
-                        <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">You're almost finishing!</CardTitle>
+                        <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">{`You're almost finishing!`}</CardTitle>
                         <CardDescription>You are almost finishing creating your account.</CardDescription>
                     </CardHeader>
                 )}

@@ -18,14 +18,14 @@ export async function POST(req: Request) {
                         error:"A user with this email already exist, try sign in",
                     }, { status: 200 })
                 }else{
-                    let mailTranporter=createTransport({
+                    const mailTranporter=createTransport({
                         service:'gmail',
                         auth:{
                             user:process.env.TRANSPORTER,
                             pass:process.env.TRANSPORTER_PASSWORD
                         }
                     });
-                    let details={
+                    const details={
                         from:process.env.TRANSPORTER,
                         to:email,
                         subject:`Verification Code`,
@@ -53,8 +53,8 @@ export async function POST(req: Request) {
 }
 
 function createCode():string {
-    let date=new Date()
-    let hr=date.getMinutes()<10?`0${date.getMinutes()}`:date.getMinutes()
+    const date=new Date()
+    const hr=date.getMinutes()<10?`0${date.getMinutes()}`:date.getMinutes()
     const code=`${hr}${date.getFullYear()}`
     return code
 }
