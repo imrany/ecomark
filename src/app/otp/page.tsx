@@ -11,13 +11,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/hooks/use-toast"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState, FormEvent } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function Page() {
     const { toast }=useToast()
     const [isDisabled,setIsDisabled]=useState(false)
+    const [isLoading,setIsLoading]=useState(true)
     const router = useRouter()
 
     async function handleVerifyCode(e:FormEvent<HTMLFormElement>) {
@@ -39,7 +40,6 @@ export default function Page() {
             console.log(error.message)
             toast({
                 variant: "destructive",
-                title: "Uh oh! Something went wrong.",
                 description: error.message,
                 action: <ToastAction altText="Try again">Try again</ToastAction>,
             })
@@ -48,8 +48,13 @@ export default function Page() {
 
     function checkAuth(){
         const stringifyData=localStorage.getItem("user-details")
+        const verifyDetails: any=localStorage.getItem("verify-details")
+        const parsedVerifyDetails=JSON.parse(verifyDetails)
         if(stringifyData){
             router.push("/home")
+        }else if(!verifyDetails||!parsedVerifyDetails.email||!parsedVerifyDetails.code){
+            setIsLoading(false)
+            router.push("/verify-email")
         }
     }
 
@@ -58,7 +63,17 @@ export default function Page() {
     })
   return (
     <div className="flex font-[family-name:var(--font-geist-sans)] items-center flex-col h-screen">
-        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-full shadow-none">
+        {isLoading?(
+            <div className="w-full flex items-center justify-center h-full">
+                <p className="text-gray-800 max-sm:text-sm">Loading...</p>
+            </div>
+        ):(
+        <motion.div
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}  
+            className="md:w-[500px] w-[90vw] flex items-center rounded-none h-full shadow-none"
+        >
             <Card className="w-full rounded-none shadow-none border-none">
                 <CardHeader>
                     <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">Get Verified!</CardTitle>
@@ -79,7 +94,8 @@ export default function Page() {
                     </form>
                 </CardContent>
             </Card>
-        </div>
+        </motion.div>
+        )}
     </div>
   )
 }

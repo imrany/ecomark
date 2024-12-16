@@ -15,6 +15,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState, FormEvent } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function SignIn() {
     const { toast }=useToast()
@@ -77,7 +78,12 @@ export default function SignIn() {
     })
   return (
     <div className="flex font-[family-name:var(--font-geist-sans)] items-center flex-col h-screen">
-        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none">
+        <motion.div
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none"
+        >
             <Card className="w-full rounded-none shadow-none border-none">
                 <CardHeader>
                     <CardTitle className="text-3xl font-semibold text-[var(--primary-01)]">Welcome Back!</CardTitle>
@@ -139,7 +145,7 @@ export default function SignIn() {
                     </form>
                 </CardContent>
             </Card>
-        </div>
+        </motion.div>
     </div>
   )
 }
