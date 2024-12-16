@@ -1,6 +1,7 @@
 import { genSalt, hash } from "bcryptjs";
 import { accessSheet, writeDataToSheet } from "@/lib/google-apis/sheets";
 import { NextResponse } from "next/server";
+import { createTransport } from "nodemailer";
 
 const spreadsheetId = process.env.CUSTOMER_SPREADSHEET_ID as string
 
@@ -26,8 +27,28 @@ export async function PATCH(req: Request) {
             const values = [[rows[rowIndex][0],
                 rows[rowIndex][1],rows[rowIndex][2],rows[rowIndex][3],hashedPassword,rows[rowIndex][5],rows[rowIndex][6],rows[rowIndex][7],rows[rowIndex][8],rows[rowIndex][9]
             ]]; 
-            const result = await writeDataToSheet(spreadsheetId, range, values)
-            return NextResponse.json({message:`Password updated`})
+            await writeDataToSheet(spreadsheetId, range, values)
+            let mailTranporter=createTransport({
+                service:'gmail',
+                auth:{
+                    user:process.env.TRANSPORTER,
+                    pass:process.env.TRANSPORTER_PASSWORD
+                }
+            });
+            let details={
+                from:process.env.TRANSPORTER,
+                to:email,
+                subject:`Account Update`,
+                text:`Hello ${rows[rowIndex][2]}, \nYour account password was updated`
+            }
+            mailTranporter.sendMail(details,(err:any)=>{
+                if(err){
+                    console.log({error: "Cannot sent email, try again"})
+                    return;
+                }else{
+                    return NextResponse.json({message:`Password updated`})
+                }
+            })
         }else {
             return NextResponse.json({ error: "Enter all the required fields" }, { status: 408 });
         }
