@@ -90,7 +90,7 @@ export default function Page() {
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="email" className="text-[var(--primary-01)] font-semibold required">Email address</Label>
-                                <Input id="email" name="email" type="email" placeholder="Enter your email" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                <Input id="email" name="email" type="email" placeholder="Enter your email" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                             </div>
                             
                             <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] font-semibold hover:bg-[var(--primary-01)]":""}`}>

@@ -15,7 +15,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState, FormEvent } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 export default function SignIn() {
     const { toast }=useToast()
@@ -35,7 +35,8 @@ export default function SignIn() {
                 },
                 body:JSON.stringify({
                     password:formData.get('password'),
-                    email:formData.get('email')
+                    email:formData.get('email'),
+                    period:formData.get('period')
                 })
             })
             const parseRes=await response.json()
@@ -94,16 +95,16 @@ export default function SignIn() {
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="email" className="text-[var(--primary-01)] font-semibold required">Email address</Label>
-                                <Input id="email" name="email" type="email" placeholder="Enter your email" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                <Input id="email" name="email" type="email" placeholder="Enter your email" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="password" className="text-[var(--primary-01)]  font-semibold required">Password</Label>
-                                <Input id="password" name="password" minLength={8} maxLength={24} type="password" className="border-[var(--primary-03)] placeholder:font-semibold outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" placeholder="Password" required/>
+                                <Input id="password" name="password" minLength={8} maxLength={24} type="password" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" placeholder="Password" required/>
                             </div>
                             <div className="sm:flex md:items-center sm:justify-between">
                                 <div className="flex items-center justify-center sm:justify-start py-2 sm:py-0">
-                                    <input id="push-email" defaultValue={`${false}`} name="push-notifications" type="checkbox" phx-debounce="blur" className="h-4 w-4 rounded border-gray-300 text-[var(--primary-01)] focus:ring-[var(--primary-01)]"/>
-                                    <label htmlFor="push-email" className="ml-3">
+                                    <input id="period" defaultValue='30d' name="period" type="checkbox" phx-debounce="blur" className="h-4 w-4 rounded border-gray-300 text-[var(--primary-01)] focus:ring-[var(--primary-01)]"/>
+                                    <label htmlFor="period" className="ml-3">
                                         <span className="block text-sm font-medium text-[var(--primary-01)]">
                                             Remember for 30 days
                                         </span>
@@ -111,7 +112,7 @@ export default function SignIn() {
                                 </div>
                                 <div className="py-2 sm:py-0 text-center sm:text-left">
                                 <Button variant="link" className="ml-auto text-[var(--primary-01)]" asChild>
-                                    <Link href="/en/password-reset/new-request" data-phx-link="redirect" data-phx-link-state="push" className="text-sm text-navcolor-600 font-semibold hover:underline" title="Navigate to password reset page">
+                                    <Link href="/password-reset" data-phx-link="redirect" data-phx-link-state="push" className="text-sm text-navcolor-600 font-semibold hover:underline" title="Navigate to password reset page">
                                         Forgot Password
                                     </Link>
                                 </Button>

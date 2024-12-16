@@ -60,11 +60,12 @@ export async function POST(req: Request) {
                     'customer reference':newRows[rowIndex][0],
                     'photo':newRows[rowIndex][1],
                     'username':newRows[rowIndex][2],
-                    'full name':newRows[rowIndex][4],
-                    'phone number':newRows[rowIndex][5],
-                    'location name':newRows[rowIndex][6],
-                    'location lat_long':newRows[rowIndex][7],
-                    'account balance':newRows[rowIndex][8],
+                    'email':newRows[rowIndex][3],
+                    'full name':newRows[rowIndex][5],
+                    'phone number':newRows[rowIndex][6],
+                    'location name':newRows[rowIndex][7],
+                    'location lat_long':newRows[rowIndex][8],
+                    'account balance':newRows[rowIndex][9],
                     'token':generateToken(newRows[rowIndex][0])
                 }
                 return Response.json({

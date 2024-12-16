@@ -4,15 +4,15 @@ import { accessSheet } from "@/lib/google-apis/sheets";
 import { NextResponse } from "next/server";
 
 const spreadsheetId = process.env.CUSTOMER_SPREADSHEET_ID as string
-const generateToken=(id:string)=>{
+const generateToken=(id:string, period:string)=>{
     return sign({id},`${process.env.JWT_SECRET}`,{
-        expiresIn:'10d'
+        expiresIn:period || '10d'
     })
 };
 
 export async function POST(req: Request) {
     try{
-        const { password,email } = await req.json()
+        const { password,email, period } = await req.json()
         if(email&&password){
             const rows:any = await accessSheet(spreadsheetId, 'Sheet1!A1:J10')
             let rowIndex = -1; 
@@ -29,12 +29,13 @@ export async function POST(req: Request) {
                 'customer reference':rows[rowIndex][0],
                 'photo':rows[rowIndex][1],
                 'username':rows[rowIndex][2],
-                'full name':rows[rowIndex][4],
-                'phone number':rows[rowIndex][5],
-                'location name':rows[rowIndex][6],
-                'location lat_long':rows[rowIndex][7],
-                'account balance':rows[rowIndex][8],
-                'token':generateToken(rows[rowIndex][0])
+                'email':rows[rowIndex][3],
+                'full name':rows[rowIndex][5],
+                'phone number':rows[rowIndex][6],
+                'location name':rows[rowIndex][7],
+                'location lat_long':rows[rowIndex][8],
+                'account balance':rows[rowIndex][9],
+                'token':generateToken(rows[rowIndex][0],period)
             }
 
             if(data){
