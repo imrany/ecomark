@@ -12,20 +12,22 @@ import { Label } from "@/components/ui/label"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, FormEvent } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 
-// username, full_name, photo, email, phone_number, location_name, location_lat_long, account_balance, password
 
 export default function SignUp() {
     const { toast } = useToast()
     const router = useRouter()
     const [isDisabled,setIsDisabled]=useState(false)
-    async function handleSignUp(e:any) {
+    async function handleSignUp(e:FormEvent<HTMLFormElement>) {
         try{
             e.preventDefault()
-            if(e.target.confirm.value!==e.target.password.value){
+            const formData=new FormData(e.currentTarget)
+            const verifyDetails:any= localStorage.getItem('verify-details')
+            const parsedVerifyDetails = JSON.parse(verifyDetails)
+            if(formData.get('confirm')!==formData.get('password')){
                 toast({
                     variant: "destructive",
                     description: "Password doesn't match!",
@@ -39,10 +41,17 @@ export default function SignUp() {
                     headers:{
                         "content-type":"application/json"
                     },
+                    // username, full_name, photo, email, phone_number, location_name, location_lat_long, account_balance, password
                     body:JSON.stringify({
-                        username:e.target.username.value,
-                        password:e.target.confirm.value,
-                        email:e.target.email.value
+                        username:formData.get('username'),
+                        full_name:formData.get('full_name'),
+                        photo:null,
+                        email:parsedVerifyDetails.email,
+                        phone_number:formData.get("phone_number"),
+                        location_name:formData.get("location_name"),
+                        location_lat_long:null,
+                        acccount_balance:0,
+                        password:formData.get('confirm'),
                     })
                 })
                 const parseRes=await response.json()
@@ -55,6 +64,7 @@ export default function SignUp() {
                     })
                     setIsDisabled(false)    
                 }else{
+                    localStorage.removeItem('verify-details')
                     const data:any=parseRes.data
                     console.log(data)
                     const stringifyData=JSON.stringify(data)

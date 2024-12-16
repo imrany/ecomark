@@ -85,7 +85,7 @@ export default function Body({
     return () => window.removeEventListener('resize', updateTransformValue);
  }, [isMobile])
   return (
-    <div className="flex font-[family-name:var(--font-geist-sans)] mt-[43px] flex-col w-full p-4">
+    <div className="flex font-[family-name:var(--font-geist-sans)] mt-[43px] flex-col w-fusm:p-8 p-6">
         <div className="flex items-center flex-wrap justify-between gap-1 mb-6">
             <p className="text-xl font-semibold text-[var(--primary-01)]">Most purchased</p>
             {!isMobile?(

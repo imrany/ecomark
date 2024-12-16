@@ -32,7 +32,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="villebiz" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased sm:p-4 p-2`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <GlobalProvider>
           <main>{children}</main>
