@@ -1,5 +1,4 @@
 "use client"
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -22,7 +21,7 @@ export default function Page() {
     const [value, setValue] = useState("")
     const router = useRouter()
     
-    const verifyDetails: any=localStorage.getItem("verify-details")
+    const verifyDetails: any=typeof window !== "undefined"?localStorage.getItem("verify-details"):null
     const parsedVerifyDetails=verifyDetails?JSON.parse(verifyDetails):{}
     function handleVerifyCode(e:string) {
         setValue(e)
@@ -38,7 +37,7 @@ export default function Page() {
 
     function checkAuth(){
         const stringifyData=localStorage.getItem("user-details")
-        const verifyDetails: any=localStorage.getItem("verify-details")
+        const verifyDetails: any=typeof window !== "undefined"?localStorage.getItem("verify-details"):null
         const parsedVerifyDetails=JSON.parse(verifyDetails)
         if(stringifyData){
             router.push("/home")

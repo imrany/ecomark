@@ -1,4 +1,3 @@
-"use client"
 // import Body from "@/components/body"
 
 // '/products?a=1'

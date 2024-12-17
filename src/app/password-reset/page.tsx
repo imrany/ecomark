@@ -25,7 +25,6 @@ export default function Page() {
     const { toast }=useToast()
     const [isDisabled,setIsDisabled]=useState(false)
     const [currentTab, setCurrentTab] = useState(1);
-    const [email, setEmail] = useState("");
     const [value, setValue] = useState("")
     const [error, setError] = useState("")
     const router = useRouter()
@@ -113,7 +112,7 @@ export default function Page() {
         }
     }
 
-    const verifyDetails: any=localStorage.getItem("verify-details")
+    const verifyDetails: any=typeof window !== "undefined"?localStorage.getItem("verify-details"):null
     const parsedVerifyDetails=verifyDetails?JSON.parse(verifyDetails):{}
     function handleVerifyCode(e:string) {
         setValue(e)
