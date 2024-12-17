@@ -36,7 +36,8 @@ export default function Page() {
     }
 
     function checkAuth(){
-        const stringifyData=localStorage.getItem("user-details")
+        const stringifyData=typeof window !== "undefined"?localStorage.getItem("user-details"):null
+        const verified=typeof window !== "undefined"?localStorage.getItem("verified"):null
         const verifyDetails: any=typeof window !== "undefined"?localStorage.getItem("verify-details"):null
         const parsedVerifyDetails=JSON.parse(verifyDetails)
         if(stringifyData){
@@ -44,6 +45,10 @@ export default function Page() {
         }else if(!verifyDetails||!parsedVerifyDetails.email||!parsedVerifyDetails.code){
             setIsLoading(false)
             router.push("/verify-email")
+        }else if(verified){
+            router.push("/sign-up")
+        }else{
+            setIsLoading(false)
         }
     }
 

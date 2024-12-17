@@ -23,7 +23,12 @@ export default function SignUp() {
     const [currentTab, setCurrentTab] = useState(1);
     const [locationCoordinates, setLocationCoordinates]=useState("")
     const [getLocationError,setGetLocationError]=useState("")
-
+    const [username,setUsername]=useState("")
+    const [firstName,setFirstName]=useState("")
+    const [lastName,setLastName]=useState("")
+    const [phoneNumber,setPhoneNumber]=useState("")
+    const [locationName,setLocationName]=useState("")
+                        
     async function handleSignUp(e:FormEvent<HTMLFormElement>) {
         try{
             e.preventDefault()
@@ -45,14 +50,14 @@ export default function SignUp() {
                         "content-type":"application/json"
                     },
                     body:JSON.stringify({
-                        username:formData.get('username'),
-                        full_name:`${formData.get('first_name')} ${formData.get('last_name')}`,
-                        photo:null,
+                        username,
+                        full_name:`${firstName} ${lastName}`,
+                        photo:"no image",
                         email:parsedVerifyDetails.email,
-                        phone_number:formData.get("phone_number"),
-                        location_name:formData.get("location_name"),
+                        phone_number:phoneNumber,
+                        location_name:locationName,
                         location_lat_long:locationCoordinates,
-                        acccount_balance:0,
+                        account_balance:"0",
                         password:formData.get('confirm'),
                     })
                 })
@@ -95,6 +100,8 @@ export default function SignUp() {
         }else if(!verified||isEmailVerified===false){
             setIsLoading(false)
             router.push("/verify-email")
+        }else{
+            setIsLoading(false)
         }
     }
 
@@ -159,24 +166,24 @@ export default function SignUp() {
                                     <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-x-2 max-sm:gap-y-4 w-full">
                                         <div className="flex flex-col max-sm:w-full space-y-1.5">
                                             <Label htmlFor="first_name" className="text-[var(--primary-01)] font-semibold required">First name</Label>
-                                            <Input id="first_name" name="first_name" type="text" placeholder="Enter your legal first name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                            <Input id="first_name" onChange={(e:any)=>setFirstName(e.target.value)} name="first_name" type="text" placeholder="Enter your legal first name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                                         </div>
                                         <div className="flex flex-col max-sm:w-full space-y-1.5">
                                             <Label htmlFor="last_name" className="text-[var(--primary-01)] font-semibold  required">Last name</Label>
-                                            <Input id="last_name" name="last_name" type="type" placeholder="Enter your legal last name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                            <Input id="last_name" onChange={(e:any)=>setLastName(e.target.value)} name="last_name" type="type" placeholder="Enter your legal last name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                                         </div>
                                     </div>
                                     <div className="flex flex-col max-sm:w-full space-y-1.5">
                                         <Label htmlFor="username" className="text-[var(--primary-01)] font-semibold required">Username</Label>
-                                        <Input id="username" name="username" type="text" placeholder="Enter preferred username" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                        <Input id="username" onChange={(e:any)=>setUsername(e.target.value)} name="username" type="text" placeholder="Enter preferred username" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                                     </div>
                                     <div className="flex flex-col max-sm:w-full space-y-1.5">
                                         <Label htmlFor="phone_number" className="text-[var(--primary-01)] font-semibold required">Phone number</Label>
-                                        <Input id="phone_number" name="phone_number" type="tel" placeholder="254703733290" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                        <Input id="phone_number" onChange={(e:any)=>setPhoneNumber(e.target.value)} name="phone_number" type="tel" pattern="254[0-9]{9}" title="Must start with 254 and be followed by 9 digits" placeholder="254703733290" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                                     </div>
                                     <div className="flex flex-col max-sm:w-full space-y-1.5">
                                         <Label htmlFor="location_name" className="text-[var(--primary-01)] font-semibold required">City of residency</Label>
-                                        <Input id="location_name" name="location_name" type="text" placeholder="Mombasa" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                        <Input id="location_name" onChange={(e:any)=>setLocationName(e.target.value)} name="location_name" type="text" placeholder="Mombasa" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
                                     </div>
                                     <Button type="button" onClick={()=>handleContinue(2)} variant="default" className={`h-[40px] bg-[var(--primary-01)] hover:bg-[var(--primary-01)]`}>
                                         <p>Continue</p>
@@ -210,11 +217,13 @@ export default function SignUp() {
                                         </div>
                                     </div>
                                     <div className="flex justify-between flex-wrap-reverse w-full gap-2">
-                                        <Button type="button" onClick={()=>handleContinue(currentTab-1)} variant="secondary" className={`w-[150px] h-[40px]`}>
-                                            <p>Back</p>
-                                        </Button>
+                                        {isDisabled===false&&(
+                                            <Button type="button" onClick={()=>handleContinue(currentTab-1)} variant="secondary" className={`w-[150px] h-[40px]`}>
+                                                <p>Back</p>
+                                            </Button>
+                                        )}
 
-                                        <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] hover:bg-[var(--primary-01)]":""}`}>
+                                        <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] hover:bg-[var(--primary-01)]":"w-full"}`}>
                                             {isDisabled===false?(<p>Create account</p>):(<p>Creating...</p>)}
                                         </Button>
                                     </div>

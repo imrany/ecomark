@@ -20,20 +20,16 @@ export async function POST(req: Request) {
             const hashedPassword = await hash(password, salt);
 
             const rows:any = await accessSheet(spreadsheetId, 'Sheet1!A1:J10')
-            for (const row of rows) { 
-                if (row.includes(email)) { 
-                    return Response.json({
-                        error:"A user with this email already exist.",
-                    }, { status: 200 })
-                }else if(row.includes(phone_number)){
-                    return Response.json({
-                        error:"A user with this phone number already exist.",
-                    }, { status: 200 })
-                }else if(row.includes(username)){
-                    return Response.json({
-                        error:"This username is not available, try another.",
-                    }, { status: 200 })
-                }
+            const emailExists = rows.some((row: any) => row.includes(email)); 
+            const phoneExists = rows.some((row: any) => row.includes(phone_number)); 
+            const usernameExists = rows.some((row: any) => row.includes(username)); 
+            
+            if (emailExists) { 
+                return NextResponse.json({ error: "A user with this email already exists.", }, { status: 200 }); 
+            } else if (phoneExists) { 
+                return NextResponse.json({ error: "A user with this phone number already exists.", }, { status: 200 });
+            } else if (usernameExists) { 
+                return NextResponse.json({ error: "This username is not available, try another.", }, { status: 200 });
             }
     
             const range = `Sheet1!A${rows.length+1}`; 
@@ -42,7 +38,6 @@ export async function POST(req: Request) {
                 photo,username,email,hashedPassword,full_name,phone_number,location_name,location_lat_long,account_balance
             ]]; 
             const result = await writeDataToSheet(spreadsheetId, range, values)
-            console.log(result)
             if(result){
                 const newRows:any = await accessSheet(spreadsheetId, 'Sheet1!A1:J10')
                 let rowIndex = -1; 
@@ -68,7 +63,7 @@ export async function POST(req: Request) {
                     'account balance':newRows[rowIndex][9],
                     'token':generateToken(newRows[rowIndex][0])
                 }
-                return Response.json({
+                return NextResponse.json({
                     message: `Welcome ${data['username']}`,
                     data
                 })

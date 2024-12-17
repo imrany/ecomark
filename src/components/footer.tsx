@@ -6,7 +6,7 @@ export default function Footer(){
     return(
         <footer className="flex max-md:flex-col bg-[var(--primary-01)] justify-center md:justify-between w-screen h-[300px] py-12 px-6 max-md:gap-y-8 md:px-12 text-sm font-[family-name:var(--font-geist-mono)] text-white">
             <div className="flex flex-col gap-1">
-                <p>Insight.ai</p>
+                <p>villebiz</p>
                 <p className="flex gap-2 items-center text-xs">
                     <Copyright className="w-[15px] h-[15px]"/>
                     <span>2024 Copyright All rights reserved</span>
