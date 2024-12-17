@@ -9,7 +9,6 @@ export const GlobalProvider = ({
     children: React.ReactNode;
 }>) => {
   const [globalState, setGlobalState] = useState({
-    BASE_URL:`http://localhost:3000`,
     user: null,
     cart: [],
     // Add other global states here

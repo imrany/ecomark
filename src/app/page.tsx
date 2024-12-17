@@ -1,10 +1,11 @@
 "use client"
-import Body from "@/components/body"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import Hero from "@/components/hero"
 import { useState, useEffect } from "react"
 import { ProductType } from "./types"
+import { Skeleton } from "@/components/ui/skeleton"
+import { ProductCard } from "@/components/product-card"
 
 export default function Home() {
   const [products,setProducts]=useState<ProductType[]>([
@@ -64,16 +65,53 @@ export default function Home() {
       console.log(error)
     }
   }
+ 
+  async function registerServiceWorker() {
+    try{
+      await navigator.serviceWorker.register('/sw.js', {
+        scope: '/',
+        updateViaCache: 'none',
+      })
+      console.log("sw registered")
+    }catch(error:any){
+      console.log(error.message)
+    }
+  }
 
-  useEffect(()=>{
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      registerServiceWorker()
+    }
     getProducts()
-  },[])
+  })
   return(
     <main className="flex min-h-screen overflow-x-hidden flex-col items-center justify-start">
       <Header/>
-      {/* <Hero/> */}
-      <Body products={products}/>
-      {/* <Footer/> */}
+      <Hero/>
+      <div className="py-4">
+        {products&&products[0].product_name.length>0?(
+          <div className="pt-4 max-sm:flex flex-wrap gap-2 max-sm:gap-y-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center">
+              {products.map(product=>{
+                  return(
+                    <ProductCard key={product.product_reference} product={product}/>     
+                  )
+              })}
+          </div>
+        ):(
+          <div className="pt-4 max-sm:flex flex-wrap gap-2 max-sm:gap-y-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center">
+              {[1,2,3,4].map(n=>(
+                  <div key={n} className="flex flex-col space-y-3">
+                      <Skeleton className="w-[300px] h-[200px] rounded-xl" />
+                      <div className="space-y-2">
+                      <Skeleton className="h-6 w-[250px]" />
+                      <Skeleton className="h-4 w-[200px]" />
+                      </div>
+                  </div>
+              ))}
+          </div>
+        )}
+      </div>
+      <Footer/>
     </main>
   )
 }

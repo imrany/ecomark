@@ -11,7 +11,7 @@ export async function POST(req: Request) {
             business_location_photo,business_location_lat_long
         } = await req.json()
         const rows:any = await accessSheet(spreadsheetId, 'Sheet2!A1:N10')
-        for (let row of rows) { 
+        for (const row of rows) { 
             console.log(row); 
             if (row.includes(`REF-${product_referrence}`)) { 
                 return Response.json({

@@ -4,6 +4,11 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { GlobalProvider } from "@/components/GlobalContext";
 
+const sourceSerif = localFont({
+  src: "./fonts/SourceSerif.ttf",
+  variable: "--font-source-serif",
+  weight: "100 900",
+});
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -17,8 +22,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Villebiz",
-  description: "Get any item under affordable prices.",
-  keywords:["Market","Ecommerce", "Products", "Seller","Buyer","Sell","Buy"]
+  description: "Get goods and services at affordable prices.",
+  keywords:["villebiz","Villebiz","Market","Ecommerce", "Products", "Seller","Buyer","Sell","Buy"]
 };
 
 export default function RootLayout({
@@ -28,8 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>  
+        <meta name="apple-mobile-web-app-title" content="villebiz" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased sm:p-4 p-2`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} antialiased`}
       >
         <GlobalProvider>
           <main>{children}</main>

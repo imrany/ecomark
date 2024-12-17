@@ -1,59 +1,59 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken"
-import { NextResponse } from 'next/server';
-import { pool } from "../../db";
+import { accessSheet } from "@/lib/google-apis/sheets";
+import { NextResponse } from "next/server";
 
-const generateUserToken=(id:string)=>{
+const spreadsheetId = process.env.CUSTOMER_SPREADSHEET_ID as string
+const generateToken=(id:string, period:string)=>{
     return sign({id},`${process.env.JWT_SECRET}`,{
-        expiresIn:'10d'
+        expiresIn:period || '10d'
     })
 };
 
-async function selectUser(
-    email: string,
-) {
-    return new Promise((resolve, reject) => {
-      pool.query(
-        "SELECT * FROM users WHERE email = $1;",
-        [email],
-        (error: any, data: any) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(data);
-          }
-        }
-      );
-    });
-}
-
 export async function POST(req: Request) {
     try{
-        const { password,email } = await req.json()
+        const { password,email, period } = await req.json()
         if(email&&password){
-            // Wait for the insert operation to complete
-            const data: any = await selectUser(email);
-            if(data.rows[0]){
-                if (data.rows[0].email&&await compare(password,data.rows[0].password)) {
-                    return Response.json({
-                        msg:`Welcome ${data.rows[0].username}`,
-                        data:{
-                            username:data.rows[0].username,
-                            email:data.rows[0].email,
-                            photo:data.rows[0].photo,
-                            token:generateUserToken(data.rows[0].id)
-                        }
+            const rows:any = await accessSheet(spreadsheetId, 'Sheet1!A1:J10')
+            let rowIndex = -1; 
+            for (let i = 0; i < rows.length; i++) { 
+                if (rows[i][3] === email) { 
+                    rowIndex = i; 
+                    break; 
+                } 
+            } 
+            if (rowIndex === -1) { 
+                return NextResponse.json({error:`No user found, create account instead`},{status:404})
+            }
+            const data:any={
+                'customer reference':rows[rowIndex][0],
+                'photo':rows[rowIndex][1],
+                'username':rows[rowIndex][2],
+                'email':rows[rowIndex][3],
+                'full name':rows[rowIndex][5],
+                'phone number':rows[rowIndex][6],
+                'location name':rows[rowIndex][7],
+                'location lat_long':rows[rowIndex][8],
+                'account balance':rows[rowIndex][9],
+                'token':generateToken(rows[rowIndex][0],period)
+            }
+
+            if(data){
+                if (data.email&&await compare(password,rows[rowIndex][4])) {
+                    return NextResponse.json({
+                        msg:`Welcome ${data['username']}`,
+                        data
                     })
-                }else if(await compare(password,data.rows[0].password)===false){
+                }else if(await compare(password,rows[rowIndex][3])===false){
                     return NextResponse.json({error:'You have enter the wrong password'},{status:401})
                 }
             }else{
                 return NextResponse.json({error:`Account associated with email ${email} does not exist!`},{status:404})
             }
-        }else{
-            return Response.json({error:"Enter all the required fields"})
+        }else {
+            return NextResponse.json({ error: "Enter all the required fields" }, { status: 408 });
         }
-    } catch (error: any) {
+    }catch(error:any){
         console.error('Error:', error); // Return an error response
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

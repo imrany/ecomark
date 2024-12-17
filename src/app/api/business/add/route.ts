@@ -9,7 +9,7 @@ export async function POST(req: Request) {
             till_number, paybill, paybill_account_number, business_logo, location_photo, phone_number, business_email
          } = await req.json()
         const rows:any = await accessSheet(spreadsheetId, 'Sheet1!A1:M10')
-        for (let row of rows) { 
+        for (const row of rows) { 
             if (row.includes(business_email)) { 
                 return Response.json({
                     error:"A business with this email already exist.",

@@ -26,7 +26,7 @@ export default function Page() {
     const { toast }=useToast()
     const [isDisabled,setIsDisabled]=useState(false)
     const router = useRouter()
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState<any>(null);
 
     async function handleSignIn(e:any) {
         try{
@@ -82,10 +82,10 @@ export default function Page() {
         checkAuth()
     })
   return (
-    <div className="flex font-[family-name:var(--font-geist-sans)] mx-5 mt-4 flex-col h-screen">
-        <div className="flex w-full">
+    <div className="flex font-[family-name:var(--font-geist-sans)] mx-5 mt-4 items-center flex-col h-screen">
+        <div className="flex w-[500px] mb-4">
             <div className="flex items-center gap-2">
-                <Button variant="outline">
+                <Button onClick={()=>router.back()} variant="outline">
                     <ArrowLeft/>
                 </Button>
                 <div>
@@ -94,49 +94,42 @@ export default function Page() {
                 </div>
             </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-8">
-            <div className="flex flex-col gap-4">
-                <div>
-                    <div className="w-[500px]">
-                        <div className="grid w-full items-center gap-4">
-                            <div className="grid w-full max-w-sm items-center gap-1.5">
-                                <Label htmlFor="product_photo" className="text-[var(--primary-01)] font-semibold required">Product Photo</Label>
-                                <Input id="product_photo" className="w-[500px] border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" type="file" required/>
-                            </div>
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="product_name" className="text-[var(--primary-01)] font-semibold required">Product Name</Label>
-                                <Input id="product_name" name="product_name" type="text" placeholder="Enter your product name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
-                            </div>
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="product_category" className="text-[var(--primary-01)] font-semibold required">Product Category</Label>
-                                <Select
-                                    defaultValue={selectedOption}
-                                    onChange={setSelectedOption}
-                                    options={options}
-                                    placeholder="Choose your product's category"
-                                />
-                            </div>
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="product_description" className="text-[var(--primary-01)] font-semibold required">Product Description</Label>
-                                <Textarea id="product_description" name="product_description" className="h-[200px] border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" placeholder="Describe your product" required>
-                                </Textarea>
-                            </div>
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="product_price" className="text-[var(--primary-01)] font-semibold required">Price</Label>
-                                <Input id="product_price" name="product_price" type="number" placeholder="Enter product price" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
-                            </div>
-                            <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] font-semibold hover:bg-[var(--primary-01)]":""}`}>
-                                {isDisabled===false?(<p>Add Product</p>):(<p>Adding Product...</p>)}
-                            </Button>
+        <div className="flex flex-col gap-4">
+        <div>
+                <div className="w-[500px]">
+                    <div className="grid w-full items-center gap-4">
+                        <div className="grid w-full max-w-sm items-center gap-1.5">
+                            <Label htmlFor="product_photo" className="text-[var(--primary-01)] font-semibold required">Product Photo</Label>
+                            <Input id="product_photo" className="w-[500px] border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" type="file" required/>
                         </div>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="product_name" className="text-[var(--primary-01)] font-semibold required">Product Name</Label>
+                            <Input id="product_name" name="product_name" type="text" placeholder="Enter your product name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="product_category" className="text-[var(--primary-01)] font-semibold required">Product Category</Label>
+                            <Select
+                                defaultValue={selectedOption}
+                                onChange={setSelectedOption}
+                                options={options}
+                                placeholder="Choose your product's category"
+                            />
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="product_description" className="text-[var(--primary-01)] font-semibold required">Product Description</Label>
+                            <Textarea id="product_description" name="product_description" className="h-[200px] border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" placeholder="Describe your product" required>
+                            </Textarea>
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="product_price" className="text-[var(--primary-01)] font-semibold required">Price</Label>
+                            <Input id="product_price" name="product_price" type="number" placeholder="Enter product price" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                        </div>
+                        <Button type="submit" variant={isDisabled===false?"default":"outline"} disabled={isDisabled} className={`h-[40px] ${isDisabled===false?"bg-[var(--primary-01)] font-semibold hover:bg-[var(--primary-01)]":""}`}>
+                            {isDisabled===false?(<p>Add Product</p>):(<p>Adding Product...</p>)}
+                        </Button>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-4">
-
-            </div>
-        </div>
-        <div className="md:w-[500px] w-[90vw] flex items-center rounded-none h-screen shadow-none">
         </div>
     </div>
   )

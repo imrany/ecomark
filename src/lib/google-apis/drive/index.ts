@@ -13,7 +13,7 @@ export async function uploadFileToDrive(req:any) {
         const drive:any = google1.drive({version: 'v3',auth});
         
         try {
-            var form =formidable({
+            const form =formidable({
                 keepExtensions:true,
                 maxFileSize:10 * 1024 * 1024 //10mbs
             });

@@ -3,5 +3,6 @@ interface Window {
     webkitSpeechRecognition: any;
     webkitAudioContext:any;
     location:any;
+    localStorage:any;
 }
   
