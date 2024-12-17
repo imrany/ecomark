@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
 import { ChevronRight, Home, LogIn, Mail, Menu, Plus, Settings } from "lucide-react";
@@ -26,6 +27,7 @@ export default function Header() {
     const [isMobile, setIsMobile] = useState(false);
     const [open, setOpen] = useState(false); // Manage menu visibility
     const [userDetails, setUserDetails] = useState<any>(null);
+    const pathname = usePathname();
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -63,7 +65,7 @@ export default function Header() {
         }
     ].filter(Boolean); // Filter out falsey values, like null
 
-    const mobileLinks: LinkType[]= [
+    const mobileLinks: LinkType[] = [
         userDetails && {
             label: "Go to home page",
             icon: (<Home className="text-[var(--primary-01)] w-[20px] h-[20px]" />),
@@ -90,7 +92,7 @@ export default function Header() {
         },
         userDetails && {
             icon: (<Settings className="text-[var(--primary-01)] w-[20px] h-[20px]" />),
-            label:  `${userDetails.username}`,
+            label: `${userDetails.username}`,
             href: `/user/${userDetails.username}`,
             variant: "ghost"
         },
@@ -117,8 +119,8 @@ export default function Header() {
 
     return (
         <>
-            <header className="font-[family-name:var(--font-geist-sans)] bg-[var(--body-bg)] border-b-[1px] z-50 fixed top-0 left-0 right-0">
-                <div className="my-2 mx-2 max-md:my-[13px] max-md:mx-4">
+            <header className={`font-[family-name:var(--font-geist-sans)] border-b-[1px] z-50 ${pathname==="/"?"flex justify-between w-screen bg-transparent":"fixed top-0 left-0 right-0 bg-[var(--body-bg)]"}`}>
+                <div className="my-2 mx-2 w-full max-md:my-[13px] max-md:mx-4">
                     <nav className="flex justify-between items-center w-full md:px-5">
                         <div className="flex items-center gap-2">
                             <svg width="32" height="32" viewBox="0 0 106 112" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -133,72 +135,72 @@ export default function Header() {
                             </Link>
                         </div>
 
-                    {isMobile ? (
-                        <Drawer open={open} onOpenChange={setOpen}>
-                            <DrawerTrigger asChild>
-                                <Menu onClick={() => setOpen(true)} className="w-[23px] h-[23px] text-[var(--primary-01)]" />
-                            </DrawerTrigger>
-                            <DrawerContent>
-                                <div className="mx-auto w-full max-w-sm">
-                                    <DrawerHeader className="none">
-                                        <DrawerTitle hidden className="text-[var(--primary-01)]">Villebiz</DrawerTitle>
-                                        <DrawerDescription hidden className="text-gray-600">Menu</DrawerDescription>
-                                    </DrawerHeader>
-                                    <div className="flex flex-col gap-y-4 p-4 pb-0">
-                                        {mobileLinks.map((link, index) => (
-                                            <Link key={index} href={link.href}>
-                                                <Button onClick={handleClose} variant={link.variant} asChild>
+                        {isMobile ? (
+                            <Drawer open={open} onOpenChange={setOpen}>
+                                <DrawerTrigger asChild>
+                                    <Menu onClick={() => setOpen(true)} className="w-[23px] h-[23px] text-[var(--primary-01)]" />
+                                </DrawerTrigger>
+                                <DrawerContent>
+                                    <div className="mx-auto w-full max-w-sm">
+                                        <DrawerHeader className="none">
+                                            <DrawerTitle hidden className="text-[var(--primary-01)]">Villebiz</DrawerTitle>
+                                            <DrawerDescription hidden className="text-gray-600">Menu</DrawerDescription>
+                                        </DrawerHeader>
+                                        <div className="flex flex-col gap-y-4 p-4 pb-0">
+                                            {mobileLinks.map((link, index) => (
+                                                <Link key={index} href={link.href}>
+                                                    <Button onClick={handleClose} variant={link.variant} asChild>
+                                                        <span className="flex items-center w-full">
+                                                            <span className="flex gap-2 items-center">
+                                                                {link.icon}
+                                                                <span>{link.label}</span>
+                                                            </span>
+                                                            <ChevronRight className="ml-auto w-[30px] h-[30px] text-[var(--primary-01)]" />
+                                                        </span>
+                                                    </Button>
+                                                </Link>
+                                            ))}
+                                            <a target="_blank" rel="noreferrer noopener" href="mailto:imranmat254@gmail.com?subject=Mail from Villebiz-ke">
+                                                <Button onClick={handleClose} variant="link" asChild>
                                                     <span className="flex items-center w-full">
                                                         <span className="flex gap-2 items-center">
-                                                            {link.icon}
-                                                            <span>{link.label}</span>
+                                                            <Mail className="text-[var(--primary-01)] w-[20px] h-[20px]" />
+                                                            <span>Contact us</span>
                                                         </span>
                                                         <ChevronRight className="ml-auto w-[30px] h-[30px] text-[var(--primary-01)]" />
                                                     </span>
                                                 </Button>
-                                            </Link>
-                                        ))}
-                                        <a target="_blank" rel="noreferrer noopener" href="mailto:imranmat254@gmail.com?subject=Mail from Villebiz-ke">
-                                            <Button onClick={handleClose} variant="link" asChild>
-                                                <span className="flex items-center w-full">
-                                                    <span className="flex gap-2 items-center">
-                                                        <Mail className="text-[var(--primary-01)] w-[20px] h-[20px]" />
-                                                        <span>Contact us</span>
-                                                    </span>
-                                                    <ChevronRight className="ml-auto w-[30px] h-[30px] text-[var(--primary-01)]" />
-                                                </span>
-                                            </Button>
-                                        </a>
+                                            </a>
+                                        </div>
+                                        <DrawerFooter>
+                                            {!userDetails && (
+                                                <Link href="/sign-up" className="w-full">
+                                                    <Button onClick={handleClose} variant="outline" className="border-[1px] w-full border-dashed border-[var(--primary-01)] text-[var(--primary-01)]">
+                                                        Get Started
+                                                    </Button>
+                                                </Link>
+                                            )}
+                                            <DrawerClose asChild>
+                                                <Button variant="secondary" onClick={handleClose} className="text-gray-600 hover:text-[var(--primary-01)]">Close Menu</Button>
+                                            </DrawerClose>
+                                        </DrawerFooter>
                                     </div>
-                                    <DrawerFooter>
-                                        {!userDetails && (
-                                            <Link href="/sign-up" className="w-full">
-                                                <Button onClick={handleClose} variant="outline" className="border-[1px] w-full border-dashed border-[var(--primary-01)] text-[var(--primary-01)]">
-                                                    Get Started
-                                                </Button>
-                                            </Link>
-                                        )}
-                                        <DrawerClose asChild>
-                                            <Button variant="secondary" onClick={handleClose} className="text-gray-600 hover:text-[var(--primary-01)]">Close Menu</Button>
-                                        </DrawerClose>
-                                    </DrawerFooter>
-                                </div>
-                            </DrawerContent>
-                        </Drawer>
-                    ):(
-                        <div id="desktop_nav" className="flex gap-2">
-                            {links.map(link=>(
-                                <Button key={link.href} variant={link.variant} className={link.className} asChild>
-                                    <Link href={link.href}>
-                                        {link.label}
-                                    </Link>
-                                </Button>
-                            ))}
-                        </div>
-                    )}
-                </nav>
-            </div>
-        </header>
-    </>
-  );
+                                </DrawerContent>
+                            </Drawer>
+                        ) : (
+                            <div id="desktop_nav" className="flex gap-2">
+                                {links.map(link => (
+                                    <Button key={link.href} variant={link.variant} className={link.className} asChild>
+                                        <Link href={link.href}>
+                                            {link.label}
+                                        </Link>
+                                    </Button>
+                                ))}
+                            </div>
+                        )}
+                    </nav>
+                </div>
+            </header>
+        </>
+    );
 }

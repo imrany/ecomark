@@ -39,7 +39,7 @@ export async function POST(req: Request) {
             }
 
             if(data){
-                if (data.email&&await compare(password,rows[rowIndex][3])) {
+                if (data.email&&await compare(password,rows[rowIndex][4])) {
                     return NextResponse.json({
                         msg:`Welcome ${data['username']}`,
                         data
