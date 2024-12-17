@@ -4,21 +4,9 @@ import { Button } from "./ui/button";
 export default function Hero(){
     return(
         <div
-            style={{opacity: 1, filter: "blur(0px)"}} 
-            className="flex font-[family-name:var(--font-geist-sans)] gap-9 flex-col justify-center items-center mt-[53px] h-[70vh] w-screen bg-gradient-to-t from-blue-100/20 dark:from-blue-900/5"
+            style={{opacity: 1, filter: "blur(0px)", backgroundImage: 'url("/images/hero1.jpg"), linear-gradient(rgba(0, 13, 107, 0.5), rgba(0, 13, 107, 0.5))'}} 
+            className="flex font-[family-name:var(--font-geist-sans)] bg-cover bg-no-repeat gap-9 flex-col justify-center items-center mt-[60px] w-[95vw] rounded-[30px] h-[70vh]"
         >
-            <svg 
-                aria-hidden
-                className="pointer-events-none [z-index:-1] absolute inset-0 h-full w-full fill-blue-500/50 stroke-blue-500/50 [mask-image:linear-gradient(to_top,_#ffffffad,_transparent)] opacity-[.30]" 
-                style={{visibility: "visible"}}
-            >
-                <defs>
-                    <pattern id=":Rs57qbt6ja:" width={20} height={20} patternUnits="userSpaceOnUse" x="-1" y="-1">
-                        <path d="M.5 20V.5H20" fill="none" strokeDasharray="0"></path>
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" strokeWidth="0" fill="url(#:Rs57qbt6ja:)"></rect>
-            </svg>
             <div className="flex flex-col gap-3 text-center md:w-[480px] w-[90vw]">
                 <p className="font-semibold md:text-4xl text-3xl text-[var(--primary-01)]">
                     Unlocking Human Potential With Generative AI. 

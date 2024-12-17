@@ -26,6 +26,7 @@ export default function Body({
 }) {
  const router =useRouter()
  const [isMobile,setIsMobile]=useState(false)
+ const [userDetails, setUserDetails] = useState<any>(null);
 
  const updateTransformValue = () => {
     const screenWidth = window.innerWidth;
@@ -82,10 +83,16 @@ export default function Body({
   useEffect(()=>{
     updateTransformValue();
     window.addEventListener('resize', updateTransformValue);
+    if (typeof window !== "undefined") {
+        const storedUserDetails:any = localStorage.getItem("user-details");
+        if (storedUserDetails) {
+            setUserDetails(JSON.parse(storedUserDetails));
+        }
+    }
     return () => window.removeEventListener('resize', updateTransformValue);
  }, [isMobile])
   return (
-    <div className="flex font-[family-name:var(--font-geist-sans)] mt-[43px] flex-col w-full sm:p-4 p-2">
+    <div className="flex font-[family-name:var(--font-geist-sans)] mt-[63px] sm:mt-[43px] flex-col w-full sm:p-4 p-2">
         <div className="flex items-center flex-wrap justify-between gap-1 mb-6">
             <p className="text-xl font-semibold text-[var(--primary-01)]">Most purchased</p>
             {!isMobile?(
@@ -94,10 +101,12 @@ export default function Body({
                         <Search className="text-gray-500 w-[20px] h-[20px]"/>
                         <input id="search" name="search" type="search" placeholder="Search product..." className="bg-slate-100 h-full border-none active:border-none focus:outline-none active:outline-none focus:border-none" required/>
                     </form>
-                    <Button onClick={()=>router.push("/products/add")} variant="outline" className="flex gap-2 rounded-[50px]">
-                        <p>Add New Product</p>
-                        <Plus />
-                    </Button>
+                    {userDetails&&
+                        (<Button onClick={()=>router.push("/products/add")} variant="outline" className="flex gap-2 rounded-[50px]">
+                            <p>Add New Product</p>
+                            <Plus />
+                        </Button>
+                    )}
                 </div>
             ):(
                 <div className="flex gap-2 items-center flex-wrap">
@@ -126,30 +135,32 @@ export default function Body({
                         </DialogContent>
                     </Dialog>
 
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="outline" className="flex items-center justify-center h-[35px] w-[32px] rounded-[50px]">
-                                <Plus />
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px] w-[90vw] rounded-md">
-                            <DialogHeader>
-                                <DialogTitle>Add</DialogTitle>
-                                <DialogDescription>
-                                    Add a new product
-                                </DialogDescription>
-                            </DialogHeader>
-                            <form className="grid gap-4 py-4">
-                                <div className="flex flex-col max-sm:w-full space-y-1.5">
-                                    <Label htmlFor="product_name" className="text-[var(--primary-01)]  required">Product name</Label>
-                                    <Input id="product_name" name="product_name" type="text" placeholder="Enter your product name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
-                                </div>
-                                <DialogFooter>
-                                    <Button type="submit" className="bg-[var(--primary-01)] hover:bg-[var(--primary-01)]">Submit</Button>
-                                </DialogFooter>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
+                    {userDetails&&(
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline" className="flex items-center justify-center h-[35px] w-[32px] rounded-[50px]">
+                                    <Plus />
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px] w-[90vw] rounded-md">
+                                <DialogHeader>
+                                    <DialogTitle>Add</DialogTitle>
+                                    <DialogDescription>
+                                        Add a new product
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <form className="grid gap-4 py-4">
+                                    <div className="flex flex-col max-sm:w-full space-y-1.5">
+                                        <Label htmlFor="product_name" className="text-[var(--primary-01)]  required">Product name</Label>
+                                        <Input id="product_name" name="product_name" type="text" placeholder="Enter your product name" className="border-[var(--primary-03)] outline-[1px] active:outline-[var(--primary-01)] focus:border-[var(--primary-01)] outline-[var(--primary-01)]" required/>
+                                    </div>
+                                    <DialogFooter>
+                                        <Button type="submit" className="bg-[var(--primary-01)] hover:bg-[var(--primary-01)]">Submit</Button>
+                                    </DialogFooter>
+                                </form>
+                            </DialogContent>
+                        </Dialog>
+                    )}
                 </div>
             )}
         </div>
