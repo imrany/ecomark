@@ -43,7 +43,6 @@ export default function Page() {
         if(stringifyData){
             router.push("/home")
         }else if(!verifyDetails||!parsedVerifyDetails.email||!parsedVerifyDetails.code){
-            setIsLoading(false)
             router.push("/verify-email")
         }else if(verified){
             router.push("/sign-up")

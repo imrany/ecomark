@@ -98,7 +98,6 @@ export default function SignUp() {
         if(stringifyData){
             router.push("/home")
         }else if(!verified||isEmailVerified===false){
-            setIsLoading(false)
             router.push("/verify-email")
         }else{
             setIsLoading(false)
