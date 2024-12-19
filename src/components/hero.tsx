@@ -77,7 +77,7 @@ const Hero = () => {
                     variant={idx === 0 ? "default" : "outline"}
                     asChild
                   >
-                    <Link href={button.href}>{button.label}</Link>
+                    <Link key={idx} href={button.href}>{button.label}</Link>
                   </Button>
                 ))}
               </div>
